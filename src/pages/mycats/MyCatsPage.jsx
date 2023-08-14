@@ -4,18 +4,22 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import theme from '../../style/MuiTheme';
 import { styled } from 'styled-components';
 import axios from 'axios';
-import CatCard from './CatCard';
 import TopBar from '../../components/TopBar';
+import UserCatCard from './UserCatCard';
+import { Button } from '@mui/joy';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function HomePage() {
+export default function MyCatsPage() {
 
-    const [cats, setCats] = useState();
+    const navigate = useNavigate();
+
+    const [userCats, setUserCats] = useState();
 
     useEffect(() => {
-        const catRequest = axios.get(('/api/cat'));
+        const catRequest = axios.get(`/api/user/cats`);
         catRequest
-            .then((catResponse) => { setCats(catResponse.data) })
+            .then((catResponse) => { setUserCats(catResponse.data) })
             .catch((catError) => { console.log(catError.message) });
     }, []);
 
@@ -26,8 +30,10 @@ export default function HomePage() {
 
             <HomePageDiv>
 
-                {cats?.map(cat => (
-                    <CatCard key={cat.cat_id} name={cat.cat_name} breed={cat.breed_name} image_url={cat.image_url} />
+                <Button onClick={() => { navigate('/mycats/add') }}>Add cat</Button>
+
+                {userCats?.map(cat => (
+                    <UserCatCard key={cat.cat_id} id={cat.cat_id} name={cat.cat_name} available={cat.available} image_url={cat.image_url} />
                 ))}
 
             </HomePageDiv>

@@ -17,17 +17,17 @@ export default function SignupPage() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const refreshRequest = axios.post(('/api/auth/token'), { withCredentials: true });
-        refreshRequest.then((refreshResponse) => { navigate('/') }).catch((refreshError) => {
-            if (refreshError.response.status == 401) {
-                const logoutRequest = axios.post(('/api/auth/logout'), { withCredentials: true })
-                logoutRequest
-                    .then((logoutResponse) => { })
-                    .catch((logoutError) => { })
-            }
-        });
-    }, []);
+    // useEffect(() => {
+    //     const refreshRequest = axios.post(('/api/auth/token'), { withCredentials: true });
+    //     refreshRequest.then((refreshResponse) => { navigate('/') }).catch((refreshError) => {
+    //         if (refreshError.response.status == 401) {
+    //             const logoutRequest = axios.post(('/api/auth/logout'), { withCredentials: true })
+    //             logoutRequest
+    //                 .then((logoutResponse) => { })
+    //                 .catch((logoutError) => { })
+    //         }
+    //     });
+    // }, []);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
